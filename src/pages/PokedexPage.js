@@ -19,6 +19,8 @@ function PokedexPage({
   setPokemonCount,
   filters,
   setFilters,
+  tableView,
+  setTableView,
 }) {
   const itemPerPage = 8;
   const dataFetched = useRef();
@@ -144,8 +146,6 @@ function PokedexPage({
       fetchNextPokemon(filters, pokemonList.length, setPokemonList);
     }
   }, [pokeListFragment]);
-
-  const [tableView, setTableView] = useState(true);
 
   return (
     <Box sx={styles.container}>

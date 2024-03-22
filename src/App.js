@@ -16,6 +16,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [pokemonCount, setPokemonCount] = useState(0);
   const [filters, setFilters] = useState([]);
+  const [tableView, setTableView] = useState(true);
 
   return (
     <Router>
@@ -33,6 +34,8 @@ function App() {
                 setPokemonCount,
                 filters,
                 setFilters,
+                tableView,
+                setTableView,
               }}
             />
           }
