@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 import React from 'react';
+import { colors, commonStyles } from '../utils/Common';
 
 function PaginationButtons({
   currentPage,
@@ -38,14 +39,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
-    button: {
-      backgroundColor: 'darkred',
-      borderRadius: '20px',
-      font: '500 18px Lato',
-      '&:hover': {
-        backgroundColor: '#dd0000',
-      },
-    },
+    button: commonStyles.button,
   },
   pageNumber: {
     height: '40px',
@@ -53,9 +47,10 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    border: '2px solid darkred',
+    border: `4px solid ${colors.secondary}`,
     borderRadius: '30px',
     font: '500 20px Lato',
+    backgroundColor: 'white',
   },
 };
 

@@ -1,5 +1,4 @@
 import {
-  Box,
   Paper,
   Table,
   TableBody,
@@ -9,15 +8,19 @@ import {
   TableRow,
 } from '@mui/material';
 import React from 'react';
-import { formatFirstLetterUpper, formatWeight } from '../utils/Utils';
+import { formatFirstLetterUpper } from '../utils/Utils';
 import { useNavigate } from 'react-router-dom';
+
+import UnknownImage from '../assets/unknown.png';
+import { colors } from '../utils/Common';
+import ColorBox from './pokemonInfo/ColorBox';
 
 function PokedexTable({ pokemonList }) {
   const navigate = useNavigate();
 
   return (
     <TableContainer component={Paper} sx={styles.table}>
-      <Table>
+      <Table size='small'>
         <TableHead>
           <TableRow>
             <TableCell width={80}>#ID</TableCell>
@@ -26,39 +29,36 @@ function PokedexTable({ pokemonList }) {
               Pokémon Name
             </TableCell>
             <TableCell width={80}>Weight</TableCell>
-            <TableCell>Types</TableCell>
-            <TableCell width={50}>Color</TableCell>
-            <TableCell width={50}>Baby</TableCell>
+            <TableCell width={160}>Types</TableCell>
+            <TableCell width={40}>Color</TableCell>
+            <TableCell width={60}>Special</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {pokemonList.map(
-            ({ id, image, name, weight, types, color, isBaby }) => (
+            ({ id, image, name, weight, types, color, special }) => (
               <TableRow
                 key={id}
                 sx={styles.row}
-                onClick={() => navigate(`/${id}`)}
+                onClick={() => navigate(`/pokemon/${id}`)}
               >
                 <TableCell component='th'>{id}</TableCell>
                 <TableCell>
-                  <img src={image} alt='sprite' />
+                  <img src={image || UnknownImage} alt='sprite' />
                 </TableCell>
                 <TableCell sx={{ textAlign: 'left!important' }}>
                   {formatFirstLetterUpper(name)}
                 </TableCell>
-                <TableCell>{formatWeight(weight)}</TableCell>
+                <TableCell>{weight / 10} Kg</TableCell>
                 <TableCell>
                   {types.map((t) => formatFirstLetterUpper(t)).join(', ')}
                 </TableCell>
                 <TableCell>
-                  <Box
-                    sx={styles.colorBox}
-                    title={formatFirstLetterUpper(color)}
-                  >
-                    <Box bgcolor={color} />
-                  </Box>
+                  <ColorBox color={color} />
                 </TableCell>
-                <TableCell>{isBaby}</TableCell>
+                <TableCell>
+                  {special !== '' && formatFirstLetterUpper(special)}
+                </TableCell>
               </TableRow>
             )
           )}
@@ -78,33 +78,17 @@ const styles = {
       boxSizing: 'border-box',
     },
     td: { font: '300 14px Lato', textAlign: 'center' },
-    img: {
-      heigth: '64px',
-    },
+    img: { height: '50px' },
     'thead tr': {
-      backgroundColor: '#dd0000',
+      backgroundColor: colors.primary,
       th: { color: 'white' },
     },
   },
-  colorBox: {
-    display: 'flex',
-    justifyContent: 'center',
-    div: {
-      width: '20px',
-      height: '20px',
-      borderRadius: '16px',
-      border: '1px solid black',
-    },
-  },
   row: {
-    '&:nth-of-type(even)': {
-      backgroundColor: '#f3f3f3',
-    },
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
+    '&:nth-of-type(even)': { backgroundColor: colors.grey },
+    '&:last-child td, &:last-child th': { border: 0 },
     '&:hover': {
-      backgroundColor: '#e0e0e0',
+      backgroundColor: colors.darkgrey,
       cursor: 'pointer',
     },
   },
