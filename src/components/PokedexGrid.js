@@ -14,16 +14,21 @@ function PokedexGrid({ pokemonList }) {
     <Box sx={styles.container}>
       {pokemonList.map(({ id, image, name, weight, types, color, special }) => (
         <Atropos
+          className='atropos-styled'
           key={id}
           shadowScale={0.75}
           shadowOffset={100}
           duration={200}
-          activeOffset={40}
+          activeOffset={80}
           onClick={() => navigate(`/pokemon/${id}`)}
         >
           <Box sx={styles.card}>
             <span>{special !== '' && special.toUpperCase()}</span>
-            <img src={image || UnknownImage} alt='image' />
+            <img
+              src={image || UnknownImage}
+              alt='image'
+              data-atropos-offset='6'
+            />
             <span style={{ font: '700 20px Lato', marginBottom: '8px' }}>
               {formatFirstLetterUpper(name)}
             </span>
@@ -54,11 +59,16 @@ const styles = {
     gap: '32px',
     justifyContent: 'center',
     position: 'relative',
+    '.atropos-styled': {
+      '.atropos-shadow': {
+        background: '#FFF8',
+      },
+    },
   },
   card: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFFA',
     boxShadow:
       '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
     borderRadius: '20px',
